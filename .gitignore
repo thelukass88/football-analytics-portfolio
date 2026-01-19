@@ -1,0 +1,11 @@
+# OS
+.DS_Store
+
+# Data outputs
+data/processed/
+*.db
+
+# Python
+.venv/
+__pycache__/
+*.pyc
