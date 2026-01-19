@@ -19,3 +19,14 @@ Public CSV match data from football-data.co.uk.
 
 ## Status
 Version 1: repo skeleton and initial data ingestion.
+
+## Local database
+
+This project uses a local SQLite database (`football.db`) for development.
+The database file is intentionally excluded from version control.
+
+To recreate the database locally:
+
+1. Place raw CSVs in `data/raw/`
+2. Import CSVs into SQLite
+3. Run SQL scripts in `models/staging/` and `models/core/`
