@@ -16,14 +16,23 @@ SELECT
   -- Core identifiers
   Div AS div,
   Date AS match_date_raw,
-  ('20' || substr(Date, 7, 2) || '-' || substr(Date, 4, 2) || '-' || substr(Date, 1, 2)) AS match_date_iso,
+  CASE
+    WHEN length(Date) = 10 THEN (substr(Date, 7, 4) || '-' || substr(Date, 4, 2) || '-' || substr(Date, 1, 2))  -- dd/mm/yyyy
+    WHEN length(Date) = 8  THEN ('20' || substr(Date, 7, 2) || '-' || substr(Date, 4, 2) || '-' || substr(Date, 1, 2)) -- dd/mm/yy
+    ELSE NULL
+  END AS match_date_iso,
   Time AS kickoff_time,
   HomeTeam AS home_team,
   AwayTeam AS away_team,
 
   -- Deterministic join key
   (Div || '_' ||
-   ('20' || substr(Date, 7, 2) || substr(Date, 4, 2) || substr(Date, 1, 2)) || '_' ||
+   CASE
+  WHEN length(Date) = 10 THEN (substr(Date, 7, 4) || substr(Date, 4, 2) || substr(Date, 1, 2))  -- yyyymmdd
+  WHEN length(Date) = 8  THEN ('20' || substr(Date, 7, 2) || substr(Date, 4, 2) || substr(Date, 1, 2)) -- yyyymmdd
+  ELSE NULL
+END
+ || '_' ||
    replace(HomeTeam,' ','_') || '_vs_' || replace(AwayTeam,' ','_')
   ) AS match_id,
 
@@ -61,7 +70,12 @@ DROP TABLE IF EXISTS stg_odds_1x2;
 CREATE TABLE stg_odds_1x2 AS
 SELECT
   (Div || '_' ||
-   ('20' || substr(Date, 7, 2) || substr(Date, 4, 2) || substr(Date, 1, 2)) || '_' ||
+   CASE
+  WHEN length(Date) = 10 THEN (substr(Date, 7, 4) || substr(Date, 4, 2) || substr(Date, 1, 2))  -- yyyymmdd
+  WHEN length(Date) = 8  THEN ('20' || substr(Date, 7, 2) || substr(Date, 4, 2) || substr(Date, 1, 2)) -- yyyymmdd
+  ELSE NULL
+END
+ || '_' ||
    replace(HomeTeam,' ','_') || '_vs_' || replace(AwayTeam,' ','_')
   ) AS match_id,
 
@@ -167,7 +181,12 @@ DROP TABLE IF EXISTS stg_odds_ou25;
 CREATE TABLE stg_odds_ou25 AS
 SELECT
   (Div || '_' ||
-   ('20' || substr(Date, 7, 2) || substr(Date, 4, 2) || substr(Date, 1, 2)) || '_' ||
+   CASE
+  WHEN length(Date) = 10 THEN (substr(Date, 7, 4) || substr(Date, 4, 2) || substr(Date, 1, 2))  -- yyyymmdd
+  WHEN length(Date) = 8  THEN ('20' || substr(Date, 7, 2) || substr(Date, 4, 2) || substr(Date, 1, 2)) -- yyyymmdd
+  ELSE NULL
+END
+ || '_' ||
    replace(HomeTeam,' ','_') || '_vs_' || replace(AwayTeam,' ','_')
   ) AS match_id,
 
@@ -205,7 +224,12 @@ DROP TABLE IF EXISTS stg_odds_ah;
 CREATE TABLE stg_odds_ah AS
 SELECT
   (Div || '_' ||
-   ('20' || substr(Date, 7, 2) || substr(Date, 4, 2) || substr(Date, 1, 2)) || '_' ||
+   CASE
+  WHEN length(Date) = 10 THEN (substr(Date, 7, 4) || substr(Date, 4, 2) || substr(Date, 1, 2))  -- yyyymmdd
+  WHEN length(Date) = 8  THEN ('20' || substr(Date, 7, 2) || substr(Date, 4, 2) || substr(Date, 1, 2)) -- yyyymmdd
+  ELSE NULL
+END
+ || '_' ||
    replace(HomeTeam,' ','_') || '_vs_' || replace(AwayTeam,' ','_')
   ) AS match_id,
 
