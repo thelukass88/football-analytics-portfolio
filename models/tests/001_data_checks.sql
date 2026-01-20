@@ -19,3 +19,23 @@ WHERE o.match_id IS NULL;
 SELECT 'null_match_id' AS check_name, COUNT(*) AS value
 FROM stg_matches
 WHERE match_id IS NULL;
+
+-- Expect: all match dates are in 2025 or 2026 (guards against date parsing bugs)
+SELECT
+  'dates_outside_2025_2026' AS check_name,
+  COUNT(*) AS value
+FROM stg_matches
+WHERE match_date_iso IS NULL
+   OR substr(match_date_iso, 1, 4) NOT IN ('2025', '2026');
+
+-- Optional: list a few offending rows (should return 0 rows)
+SELECT
+  match_id,
+  match_date_raw,
+  match_date_iso,
+  home_team,
+  away_team
+FROM stg_matches
+WHERE match_date_iso IS NULL
+   OR substr(match_date_iso, 1, 4) NOT IN ('2025', '2026')
+LIMIT 20;
