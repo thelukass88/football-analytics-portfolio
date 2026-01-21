@@ -9,3 +9,13 @@ data/processed/
 .venv/
 __pycache__/
 *.pyc
+# Power BI
+*.pbix
+*.pbit
+**/.pbi/
+**/Cache/
+**/*.tmp
+**/*.temp
+**/*.bak
+**/*.log
+**/*.abf
