@@ -63,6 +63,14 @@ ORDER BY lt.points DESC
 LIMIT 5;
 
 ---
+## Loss of Momentum
+
+Only two teams from the current League Table Top 5 are in the Top 5 of the Form Table. 
+Of those two, the gap in the table is 15 points. 
+This indicates the odds of Arsenal continuing to widen the gap at the top of the league are high. 
+It also implies that the main challengers (Aston Villa/ Man City) can't maintain consistent enough form to mount a challenge to Arsenal. 
+Not a great thing to have to admit as a Spurs fan.
+
 
 ## Future Analysis: Predictive Value of Recent Form
 
@@ -85,5 +93,6 @@ While recent form is commonly used in football analysis, its predictive value is
 - Compare 3-match vs 5-match vs 10-match rolling windows  
 - Segment by league position (top 5, mid-table, bottom 5)  
 - Analyse differences between early-season and late-season form
+
 
 
