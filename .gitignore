@@ -19,3 +19,8 @@ __pycache__/
 **/*.bak
 **/*.log
 **/*.abf
+
+# Analytics Outputs
+exports/
+football.db
+
