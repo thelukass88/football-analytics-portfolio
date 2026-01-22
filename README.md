@@ -66,6 +66,18 @@ CSV exports
 ↓
 Tableau dashboard
 
+---
+
+## Analytical Insights
+
+Exploratory analysis and commentary based on the analytics marts can be found here:
+
+- [`docs/insights.md`](docs/insights.md)
+
+This includes:
+- comparison of league position vs recent form
+- identification of potential regression risks
+- discussion of the predictive value of rolling form windows
 
 ### Layers
 
