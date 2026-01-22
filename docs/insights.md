@@ -62,7 +62,28 @@ JOIN mart_team_form_last5 f
 ORDER BY lt.points DESC
 LIMIT 5;
 
-It's evident that the form data cross reference with the league table indicates that some teams are unlikely to remain in the Top 5 with the trend of their current form. 
+---
 
-Future question: determine how much the last 5 games is an indication of the trajectory of a team (use previous season data or retrospectively look back at league position to determine if any 5 games can act as indicative of trajectory)
+## Future Analysis: Predictive Value of Recent Form
+
+**Question**  
+To what extent does performance over the last five matches predict a team’s future league trajectory?
+
+**Proposed Approach**  
+- Use historical season data to compare:
+  - league position at matchweek *n*
+  - points accumulated over the previous 5 matches
+  - final league position at season end
+- Evaluate whether short-term form is a reliable indicator of:
+  - sustained improvement
+  - regression from high league positions
+
+**Rationale**  
+While recent form is commonly used in football analysis, its predictive value is often assumed rather than tested. Quantifying this relationship would provide stronger evidence for using rolling form windows in performance evaluation.
+
+**Potential Extensions**  
+- Compare 3-match vs 5-match vs 10-match rolling windows  
+- Segment by league position (top 5, mid-table, bottom 5)  
+- Analyse differences between early-season and late-season form
+
 
