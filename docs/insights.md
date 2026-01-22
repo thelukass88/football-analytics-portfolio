@@ -38,3 +38,31 @@ Man United|22|38|32|6|35
 ## Among the current Top 5, who has the worst last-5 form?
 
 Man City|43|6|L-D-D-D-W|-1|2026-01-17
+
+---
+
+## League Position vs Recent Form
+
+**Question**  
+Do the teams currently at the top of the league also show strong recent momentum?
+
+**Data Used**  
+- `mart_league_table`
+- `mart_team_form_last5`
+
+**Query**
+```sql
+SELECT
+  lt.team_name,
+  lt.points AS season_points,
+  f.points_last5
+FROM mart_league_table lt
+JOIN mart_team_form_last5 f
+  ON lt.team_name = f.team_name
+ORDER BY lt.points DESC
+LIMIT 5;
+
+It's evident that the form data cross reference with the league table indicates that some teams are unlikely to remain in the Top 5 with the trend of their current form. 
+
+Future question: determine how much the last 5 games is an indication of the trajectory of a team (use previous season data or retrospectively look back at league position to determine if any 5 games can act as indicative of trajectory)
+
