@@ -109,3 +109,54 @@ All business logic (points, form, ordering) is implemented in SQL, not in the BI
 ### Build everything from scratch
 ```bash
 ./scripts/build_all.sh
+
+---
+
+## Data Model & Pipeline
+
+This project is structured using a layered analytics-engineering approach to support clean, reproducible analysis across multiple Premier League seasons.
+
+### Raw Layer
+- Source data consists of season-level CSV files from football-data.co.uk (e.g. `E_2324.csv`, `E_2425.csv`, `E_2526.csv`)
+- Raw files are ingested into SQLite with minimal transformation
+- A unified `raw_matches` table is created, with an explicit `season` column to support multi-season analysis
+- Only stable, match-level columns are included at this stage to guard against schema drift between seasons
+
+### Staging Layer (`stg_matches`)
+- Cleans and standardises raw data:
+  - parses match dates into ISO format
+  - renames ambiguous or problematic column names
+  - casts numeric fields to appropriate types
+- Preserves the `season` dimension for all downstream models
+- Acts as the single, trusted source for core modelling
+
+### Core Layer (`fact_match`)
+- Transforms match-level data into a team-level fact table
+- Each match produces two rows:
+  - one from the home team perspective
+  - one from the away team perspective
+- Calculates:
+  - goals for / against
+  - match result
+  - points earned
+- Adds a `matchweek` index per team per season using window functions
+- This structure enables cumulative metrics, rolling windows, and trajectory analysis
+
+### Marts
+- Analytics-ready tables built from `fact_match`
+- Current marts include:
+  - cumulative points by team, season, and matchweek
+- These marts are designed for direct consumption by BI tools such as Tableau
+
+---
+
+## Analytical Focus
+
+The primary analytical goal of this project is to examine team performance trajectories across seasons, including:
+
+- how cumulative points evolve over the course of a season
+- whether teams experience consistent plateau periods
+- whether those plateaus occur at similar phases across different seasons
+
+This structure enables longitudinal comparison while keeping business logic out of the BI layer.
+
