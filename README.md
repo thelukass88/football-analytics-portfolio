@@ -1,6 +1,89 @@
 # Football Analytics Portfolio (Analytics Engineering)
 
 This project builds an analytics-ready dataset from public football match CSVs and models it into clean tables suitable for BI (e.g., Power BI).
+---
+
+## Analytical Objectives
+
+This project explores team performance trajectories across multiple Premier League seasons, with a specific focus on:
+
+- how cumulative points evolve over a season
+- whether teams experience consistent plateau periods
+- whether those plateaus occur at similar phases across different seasons
+- how non-champion trajectories compare to champions from other seasons
+
+The aim is to combine robust SQL modelling with visual comparison techniques to support exploratory, comparative analysis.
+
+---
+
+## Data Pipeline Overview
+
+The project follows a layered analytics-engineering approach:
+
+### Raw Layer
+- Public Premier League match data sourced from football-data.co.uk
+- One CSV per season (e.g. `E_2324.csv`, `E_2425.csv`, `E_2526.csv`)
+- Ingested into SQLite with an explicit `season` column to support multi-season analysis
+
+### Staging Layer (`stg_matches`)
+- Standardises schema across seasons
+- Parses and normalises match dates
+- Renames ambiguous fields and casts numeric values
+- Acts as the single trusted source for downstream models
+
+### Core Layer (`fact_match`)
+- Transforms match-level data into a team-level fact table
+- Each match produces two rows (home and away perspectives)
+- Derives:
+  - goals for / against
+  - match result
+  - points earned
+- Assigns a `matchweek` per team per season using window functions
+
+### Mart Layer
+Analytics-ready tables built from `fact_match`, including:
+
+- `mart_team_points_cumulative`  
+  Team-level cumulative points by season and matchweek
+
+- `mart_league_table`  
+  Season-aware league table snapshots (works mid-season)
+
+- `mart_team_form_last5`  
+  Rolling last-5-match form per team per season
+
+- `mart_team_plateaus`  
+  Identifies consecutive low-return runs (plateaus)
+
+- `mart_team_plateau_weeks`  
+  One row per team per matchweek with plateau flags (heatmap-friendly)
+
+---
+
+## Visualisation Approach (Tableau)
+
+Visual analysis is performed in a **single Tableau workbook** using **multiple analytics-ready CSVs** exported from the mart layer.
+
+Key design principles:
+
+- All business logic lives in SQL, not Tableau
+- Tableau is used purely for exploration and storytelling
+- Comparisons are performed via highlighting and parameter-driven selection rather than filtering away context
+
+Current visual analyses include:
+- cumulative points trajectories by team and season
+- plateau heatmaps across matchweeks
+- comparative overlays between teams and champion seasons
+
+---
+
+## Project Status
+
+- Data pipeline complete and version-controlled
+- Core and mart layers validated across three seasons
+- Tableau workbook in progress (trajectory comparison and plateau analysis)
+
+Further work will focus on refining comparative visuals and documenting analytical insights.
 
 ## Goals
 - Ingest public match data (CSV)
