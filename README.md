@@ -243,3 +243,29 @@ The primary analytical goal of this project is to examine team performance traje
 
 This structure enables longitudinal comparison while keeping business logic out of the BI layer.
 
+---
+
+## Early Observations & Open Questions
+
+Initial visual exploration of cumulative points trajectories suggests that:
+
+- Teams often exhibit recognisable trajectory “shapes” across a season, with periods of rapid point accumulation followed by plateaus.
+- Some teams appear to plateau at similar phases of the season across different years, raising questions about structural or contextual factors (e.g. fixture congestion, squad depth).
+- Champion teams tend to show fewer or shorter plateau periods compared to non-champions, although this requires more rigorous comparison.
+
+During visual analysis, it became clear that:
+
+- Comparing multiple teams simultaneously can obscure meaningful patterns.
+- Focused trajectory overlays (e.g. one team-season compared against champion seasons) provide clearer insight than broad multi-team views.
+- Preserving league-wide context while highlighting specific trajectories is critical for meaningful comparison.
+
+### Open Analytical Questions
+
+The current analysis raises several questions for further exploration:
+
+- To what extent does short-term form (e.g. last five matches) predict longer-term trajectory changes?
+- Do plateau periods cluster around similar matchweeks across seasons at a league-wide level?
+- How closely do non-champion trajectories resemble champion trajectories at comparable points in the season?
+
+These questions will guide further modelling and visual refinement.
+
